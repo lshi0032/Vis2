@@ -1,0 +1,60 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 320,
+  "height": 250,
+  "title": "Number of people that died from HIV/AIDS, by age group from 1990-2019",
+  "data": {
+    "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/real_continet_age_death.csv"
+  },
+  "mark": "bar",
+  "params": [
+    {
+      "name": "industry",
+      "select": {"type": "point", "fields": ["Continent"]},
+      "bind": "legend"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Age",
+      "type": "nominal",
+      "title": "Age Group",
+      "sort": ["5<", "5 to 14", "15 to 49", "50 to 69", "70+"],
+      "axis": {"labelAngle": 0}
+    },
+    "x": {
+      "field": "Deaths",
+      "aggregate": "sum",
+      "type": "quantitative",
+      "title": "Number of people that died from HIV/AIDS",
+      "axis": {"format": "s"}
+    },
+    "color": {
+      "field": "Continent",
+      "type": "nominal",
+      "title": "Continent",
+      "scale": {
+        "range": [
+          "#A7226E",
+          "#EC2049",
+          "#F26B38",
+          "#F7DB4F",
+          "#355C7D",
+          "#63e5ff"
+        ]
+      },
+      "legend": {"orient": "right"}
+    },
+    "opacity": {"condition": {"param": "industry", "value": 1}, "value": 0.2},
+    "tooltip": [
+      {"field": "Age", "type": "nominal", "title": "Age Group"},
+      {"field": "Continent", "type": "nominal", "title": "Continent"},
+      {
+        "field": "Deaths",
+        "type": "quantitative",
+        "title": "Number of people that died in that continent (in that age group)"
+      }
+    ]
+  },
+  "config": {}
+}

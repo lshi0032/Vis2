@@ -1,0 +1,111 @@
+<head class="wholeWeb">
+    <link rel="stylesheet" href="week5.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oregano&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"
+        integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/grids-responsive-min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <script src="lachlan.js"></script>
+
+    <link rel="stylesheet" href="WebCss.css">
+
+    <link rel="stylesheet" href="vis2colouring.css">
+    <title>HIV Infection around the world</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+
+</head>
+
+
+<h1>HIV Infection around the world</h1>
+<h3>Lachlan Shing</h3>
+
+
+
+<section>
+    <div id="lightbox">
+        <h2>What countries experienced the highest number of HIV infections?</h2>
+
+        <p>HIV has been a prominant virus around the would since the 1980s and continues to impact many countries
+            today<br>
+            The following graph will allow you to explore how the number of infections a country suffered changed over
+            time.<br>
+            Use the slider to go from 1990 to 2000 and click on each country to see the full all years at once on the
+            line chart
+        </p>
+        <div id="map_line"></div>
+        <p>
+            <span class="africa">African</span> <span class="bolded">countries suffered considerably more from HIV</span> when compared to the rest
+            of the world, countries like <br>
+            <span class="eswtini">Eswtini</span>, <span class="lesotho">Lesotho</span>, <span class="zimbabwe">Zimbabwe</span>,<span class="botswana">Botswana</span>,and <span class="southafrica">South Africa</span> all had an annual infection rate above 2% at somepoint
+            between 1900 and 2000
+
+        </p>
+    </div>
+</section>
+
+<section>
+
+    <div id="lightbox">
+        <h2>What can be done to prevent the spread of HIV?</h2>
+        <p>
+            <br>
+            <span class="bolded">HIV</span> is most commonly <span class="bolded">transmitted</span> through <span
+                class="bolded">unprotected sex</span> and drug injection equipment.<br>
+            It is therefore very important for countries that have high cases of HIV to encourage the use<br>
+            of condoms during sex to prevent the transmission of HIV. <br>Condoms are <span class="bolded">90% to 95%
+                effective</span> at preventing infection.
+
+            <br>
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="lightbox">
+    <h2>Infections vs Condom use</h2>
+        <div id="scatterplot"></div>
+        <div>
+            <p>It would make sense for HIV infections to decrease as condom 
+                use becomes more frequent but this data does not suggest this.<br>
+                This may be due to the fact that countries with high condom use
+                have high rates of sex and as a result, those that do not practise<br>
+                safe sex are spreading it more quickly.<br>
+            </p>
+            
+        </div>
+        
+</section>
+
+
+
+<section>
+    <div id="lightbox">
+        <h2>How does HIV impact age groups?</h2>
+        <div id="spinechart"></div>
+        <div id="stackedbar"></div>
+        <div>
+            <p>
+                It appears <span class="bolded">people aged 15-49 suffered the most deaths</span> from HIV from 1990-2019. <br>
+                Within this group, males aged 20-24 were the most frequenct users of condoms.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+</body>

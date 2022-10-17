@@ -1,0 +1,93 @@
+/* Colour scheme of purple and blue*/
+/*blue back ground*/  
+body{background:#dddddd;}
+h1{
+    color:black;
+    text-align: center;
+    padding:5px;
+    font-family: 'Raleway', sans-serif;
+}
+h2{
+    color:black;
+    padding:5px;
+    font-family: 'Raleway', sans-serif;
+}
+h3{
+    text-align: center;
+    color:black;
+    padding:5px;
+    font-family: 'Raleway', sans-serif;
+}
+p{
+    color:black;
+    padding:5px;
+    font-family: 'Raleway', sans-serif;
+}
+
+#lightbox{
+    background:white;
+    border-radius:25px;
+    padding: 5px;
+    height:fit-content;
+    margin: auto;
+    margin-bottom:30px;
+    width:1195px
+
+}
+.bolded { font-weight: bold; }
+
+.africa{
+    color:#A7226E;
+    font-weight: bold;
+}
+
+.eswtini{
+    color:#17becf;
+    font-weight: bold;
+}
+
+.lesotho{
+    color:#17becf;
+    font-weight: bold;
+}
+
+.zimbabwe{
+    color:#dbdb8d;
+    font-weight: bold;
+}
+
+.botswana{
+    color:#2ca02c;
+    font-weight: bold;
+}
+
+.southafrica{
+    color:#2ca02c;
+    font-weight: bold;
+}
+
+
+
+
+.element {
+    display: inline-block;
+    width: 900px;
+    height: 400px;
+  }
+
+.element2 {
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+    background: #ce8888;
+  }
+  
+  .next{
+    display:flex;
+    width: 200px;
+  }
+
+  .next2{
+    display: flex;
+    width: 400px;
+  }

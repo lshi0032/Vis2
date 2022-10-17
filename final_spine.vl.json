@@ -1,0 +1,126 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/condomuse-age-gender-new.json"
+  },
+  "title": {
+    "text": "Condom use in Females and Males by age group",
+    "anchor": "middle"
+  },
+  "transform": [
+    {"calculate": "datum.Sex == 2 ? 'Female' : 'Male'", "as": "gender"},
+    {"calculate": "datum.Condom_use*0.01", "as": "condom use"}
+  ],
+  "params": [
+    {"name": "highlight", "select": {"type": "point", "on": "mouseover"}},
+    {"name": "select", "select": "point"}
+  ],
+  "spacing": 0,
+  "hconcat": [
+    {
+      "width": 200,
+      "height": 200,
+      "transform": [{"filter": {"field": "gender", "equal": "Female"}}],
+      "title": "Female",
+      "mark": {"type": "bar", "stroke": "black", "cursor": "pointer"},
+      "encoding": {
+        "y": {"field": "Age", "axis": null, "sort": "descending"},
+        "x": {
+          "aggregate": "average",
+          "field": "condom use",
+          "title": "Average use of condoms",
+          "axis": {"format": ".0%"},
+          "sort": "descending",
+          "scale": {"domain": [0,0.6]}
+        },
+        "fillOpacity": {
+          "condition": {"param": "select", "value": 1},
+          "value": 0.3
+        },
+        "strokeWidth": {
+          "condition": [
+            {"param": "select", "empty": false, "value": 2},
+            {"param": "highlight", "empty": false, "value": 1}
+          ],
+          "value": 0
+        },
+        "color": {
+          "field": "gender",
+          "scale": {"range": ["#92C5DE", "#FDB863"]},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "gender", "type": "nominal", "title": "Gender"},
+          {"field": "Age_Range", "type": "nominal", "title": "Age Range"},
+          {
+            "field": "condom use",
+            "aggregate": "average",
+            "type": "quantitative",
+            "title": "Average use of condoms",
+            "format": ".1%"
+          }
+        ]
+      }
+    },
+    {
+      "width": 20,
+      "height": 200,
+      "view": {"stroke": null},
+      "mark": {"type": "text", "align": "center"},
+      "encoding": {
+        "y": {
+          "field": "Age",
+          "type": "ordinal",
+          "axis": null,
+          "sort": "descending"
+        },
+        "text": {"field": "Age_Range", "type": "nominal"}
+      }
+    },
+    {
+      "transform": [{"filter": {"field": "gender", "equal": "Male"}}],
+      "width": 200,
+      "height": 200,
+      "title": "Male",
+      "mark": {"type": "bar", "stroke": "black", "cursor": "pointer"},
+      "encoding": {
+        "y": {
+          "field": "Age",
+          "title": null,
+          "axis": null,
+          "sort": "descending"
+        },
+        "x": {
+          "aggregate": "average",
+          "field": "condom use",
+          "title": "Average use of condoms",
+          "axis": {"format": ".0%"}
+        },
+        "fillOpacity": {
+          "condition": {"param": "select", "value": 1},
+          "value": 0.3
+        },
+        "strokeWidth": {
+          "condition": [
+            {"param": "select", "empty": false, "value": 2},
+            {"param": "highlight", "empty": false, "value": 1}
+          ],
+          "value": 0
+        },
+        "color": {"field": "gender", "legend": null},
+        "tooltip": [
+          {"field": "gender", "type": "nominal", "title": "Gender"},
+          {"field": "Age_Range", "type": "nominal", "title": "Age Range"},
+          {
+            "field": "condom use",
+            "aggregate": "average",
+            "type": "quantitative",
+            "title": "Average use of condoms",
+            "format": ".1%"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"grid": false}}
+}

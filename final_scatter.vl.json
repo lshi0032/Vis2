@@ -1,0 +1,57 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 200,
+  "title": "Percentage of people infected with HIV vs The average use of a condom during sex for people aged 15-49 (2016)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/scatterplot_data.csv"
+  },
+  "transform": [
+    {"calculate": "datum.CondomUse*0.01", "as": "condom use"},
+    {"calculate": "datum.Percentage_Infection*0.01", "as": "Percent Infected"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "circle", "size": 60},
+      "encoding": {
+        "x": {
+          "field": "condom use",
+          "type": "quantitative",
+          "title": "Average use of condoms",
+          "axis": {"format": ".0%"}
+        },
+        "y": {
+          "field": "Percent Infected",
+          "type": "quantitative",
+          "title": "Percentage of population infected with HIV",
+          "axis": {"format": ".1%"}
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "title": "Continent",
+          "scale": {
+            "range": ["#A7226E", "#EC2049", "#F26B38", "#F7DB4F", "#63e5ff"]
+          },
+          "legend": {"orient": "top-left", "fillColor": "white"}
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal", "title": "Country"},
+          {
+            "field": "condom use",
+            "type": "quantitative",
+            "title": "Average use of condoms",
+            "format": ".1%"
+          },
+          {
+            "field": "Percent Infected",
+            "type": "quantitative",
+            "title": "Percentage of poplation infected with HIV",
+            "format": ".3%"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {}
+}

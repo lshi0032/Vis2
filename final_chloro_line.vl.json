@@ -1,0 +1,287 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "params": [
+    {
+      "name": "YearSlider",
+      "value": 1995,
+      "bind": {
+        "input": "range",
+        "min": 1990,
+        "max": 2000,
+        "step": 1,
+        "name": "Year"
+      }
+    }
+  ],
+  "hconcat": [
+    {
+      "width": 600,
+      "height": 350,
+      "title": "Annual HIV infections as a percentage of a countries population",
+      "projection": {"type": "equalEarth"},
+      "layer": [
+        {  "projection": { "type":"equalEarth"},
+      "data": { "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson", "format": {"type":"topojson","feature":"oceans"} }, "mark": {"type":"geoshape","fill":"lightskyblue"} },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/ne_110m%20(1).json",
+            "format": {
+              "type": "topojson",
+              "feature": "ne_110m_admin_0_countries"
+            }
+          },
+          "transform": [
+            {
+              "calculate": "'Data is not available in ' +datum.properties.NAME",
+              "as": "note"
+            }
+          ],
+          "mark": {
+            "type": "geoshape",
+            "fill": "#ddd",
+            "stroke": "white",
+            "strokeWidth": 1
+          },
+          "encoding": {"tooltip": {"field": "note"}}
+        },
+        {
+          "params": [
+            {
+              "name": "highlight",
+              "select": {"type": "point", "on": "mouseover"}
+            },
+            {
+              "name": "select",
+              "select": {"type": "point", "fields": ["country"]}
+            }
+          ],
+          "data": {
+            "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/real_HIV_infections_3.csv"
+          },
+          "transform": [
+            {"filter": "datum.year==YearSlider"},
+            {
+              "calculate": "datum.Infected_percent_pop*0.01",
+              "as": "Infected pop"
+            },
+            {
+              "lookup": "code",
+              "from": {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/ne_110m%20(1).json",
+                  "format": {
+                    "type": "topojson",
+                    "feature": "ne_110m_admin_0_countries"
+                  }
+                },
+                "key": "properties.SU_A3",
+                "fields": ["properties", "type", "geometry"]
+              }
+            }
+          ],
+          "mark": {
+            "type": "geoshape",
+            "stroke": "white",
+            "strokeWidth": 0.5,
+            "cursor": "pointer"
+          },
+          "encoding": {
+            "color": {
+              "legend": {
+                "title": "Percentage of population infected",
+                "orient": "top-left",
+                "format": ".1%"
+              },
+              "field": "Infected pop",
+              "type": "quantitative",
+              "scale": {
+                "type": "threshold",
+                "domain": [
+                  0.000001,
+                  0.00001,
+                  0.00004,
+                  0.00007,
+                  0.0001,
+                  0.0005,
+                  0.001,
+                  0.005,
+                  0.01,
+                  0.02
+                ],
+                "range": [
+                  "#fce3ec",
+                  "#fad1df",
+                  "#f8bfd3",
+                  "#f395b6",
+                  "#ef6c9a",
+                  "#ea437d",
+                  "#e61961",
+                  "#bc154f",
+                  "#93103e",
+                  "#5c0926",
+                  "#330616"
+                ]
+              }
+            },
+            "fillOpacity": {
+              "condition": {"param": "select", "value": 1},
+              "value": 0.3
+            },
+            "strokeWidth": {
+              "condition": [
+                {"param": "select", "empty": false, "value": 2},
+                {"param": "highlight", "empty": false, "value": 1}
+              ],
+              "value": 0
+            },
+            "tooltip": [
+              {
+                "field": "properties.NAME",
+                "type": "nominal",
+                "title": "Country"
+              },
+              {
+                "field": "Infected pop",
+                "type": "quantitative",
+                "title": "Percentage of population infected",
+                "format": ".4%"
+              }
+            ]
+          }
+        },
+        { "projection": { "type":"equalEarth"},
+  "data": { 
+      "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+      "format": {"type":"topojson","feature": "ne_110m_graticules_30"} },
+      "mark": {"type":"geoshape","fill":null,"stroke": "white","opacity":0.5}}
+      ]
+    },
+    {
+      "width": 350,
+      "height": 280,
+      "data": {
+        "url": "https://raw.githubusercontent.com/lshi0032/DataVisualisation/main/real_HIV_infections_2.csv"
+      },
+      "transform": [
+        {"calculate": "datum.Infected_percent_pop*0.01", "as": "Infected_pop"}
+      ],
+      "title": "Percentage of population infected with HIV (annually)",
+      "layer": [
+        
+        {
+          "mark": {"type": "line", "point": true},
+          "encoding": {
+            "x": {"timeUnit": "year", "field": "YEAR", "title": "Year"},
+            "y": {
+              "field": "Infected_pop",
+              "type": "quantitative",
+              "title": "Percentage of population Infected ",
+              "axis": {"format": ".1%"}
+            },
+            "color": {
+              "field": "country",
+              "type": "nominal",
+              "scale": {"domain": {"param": "select"}, "scheme": "category20"},
+              "legend": null
+            },
+            "opacity": {
+              "condition": {"param": "select", "empty": false, "value": 1},
+              "value": 0
+            },
+            "tooltip": [
+              {"field": "country", "type": "nominal", "title": "Country"},
+              {
+                "field": "Infected_pop",
+                "type": "quantitative",
+                "title": "Percentage of population infected",
+                "format": ".4%"
+              }
+            ]
+          }
+        },
+        {
+          "encoding": {
+            "x": {"aggregate": "max", "field": "YEAR", "type": "temporal"},
+            "y": {
+              "aggregate": {"argmax": "YEAR"},
+              "field": "Infected_pop",
+              "type": "quantitative"
+            }
+          },
+          "layer": [
+
+            {
+              "mark": {"type": "text", "align": "left", "dx": 4},
+              "encoding": {
+                "text": {"field": "country", "type": "nominal"},
+                "opacity": {
+                  "condition": {"param": "select", "empty": false, "value": 1},
+                  "value": 0
+                }
+              }
+            }
+          ]
+        },
+        {
+          "mark": {"type": "line", "point": true},
+          "transform": [{"filter": "datum.Infected_pop>0.0040"}],
+          "encoding": {
+            "x": {"timeUnit": "year", "field": "YEAR", "title": "Year"},
+            "y": {
+              "field": "Infected_pop",
+              "type": "quantitative",
+              "title": "Percentage of population Infected ",
+              "axis": {"format": ".1%"}
+            },
+            "color": {
+              "field": "country",
+              "type": "nominal",
+              "scale": {"domain": {"param": "select"}, "scheme": "category20"},
+              "legend": null
+            },
+            "opacity": {
+              "condition": {"param": "select", "value": 1, "empty": true},
+              "value": 0
+            },
+            "tooltip": [
+              {"field": "country", "type": "nominal", "title": "Country"},
+              {
+                "field": "Infected_pop",
+                "type": "quantitative",
+                "title": "Percentage of population infected",
+                "format": ".4%"
+              }
+            ]
+          }
+        },
+        {
+          "transform": [{"filter": "datum.Infected_pop>0.0145"}],
+          "encoding": {
+            "x": {"aggregate": "max", "field": "YEAR", "type": "temporal"},
+            "y": {
+              "aggregate": {"argmax": "YEAR"},
+              "field": "Infected_pop",
+              "type": "quantitative"
+            }
+          },
+          "layer": [
+            {
+              "mark": {"type": "text", "align": "left", "dx": 4},
+              "encoding": {
+                "text": {"field": "country", "type": "nominal"},
+                "opacity": {
+                  "condition": {"param": "select", "empty": true, "value": 1},
+                  "value": 0
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+    
+      
+    
+  ],
+  "config": {}
+}
